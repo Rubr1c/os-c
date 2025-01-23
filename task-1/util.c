@@ -34,6 +34,11 @@ char **split_str(char *str, char del) {
 void handle_cmd(char *path, char **cmd) {
     if (cmd[0] == NULL) return; 
     if (strcmp(cmd[0], "cd") == 0) {
+        if (!includes_dir(path, cmd[1])) {
+            printf("No such directory\n\n"); 
+            return;
+        }
+        sprintf(path, "%s/%s", path, cmd[1]);
     } else if (strcmp(cmd[0], "ls") == 0 || strcmp(cmd[0], "dir") == 0) {
         print_dirs(path);
     } else if (strcmp(cmd[0], "mkdir") == 0) {
