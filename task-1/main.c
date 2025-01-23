@@ -9,7 +9,7 @@ char path[256] = "root";
 void print_dirs() {
     DIR *d;
     struct dirent *dir;
-    d = opendir("./root");
+    d = opendir(path);
     if (d) {
         while ((dir = readdir(d)) != NULL) {
             if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
