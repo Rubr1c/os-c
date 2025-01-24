@@ -78,6 +78,17 @@ void handle_cmd(char **cmd) {
             printf("%s\n", *var);
         }
         printf("\n");
+    } else if (strcmp(cmd[0], "set") == 0) {
+       setenv(cmd[1], cmd[2], 1); 
+    } 
+    else if (strcmp(cmd[0], "echo") == 0) {
+        int idx = 1;
+        char *curr = cmd[1];
+        while (curr != NULL) {
+            printf("%s ", curr);
+            curr = cmd[++idx];
+        }
+        printf("\n\n");
     }
 }
 
