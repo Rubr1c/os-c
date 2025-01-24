@@ -1,43 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <pwd.h>
 #include "dir.h"
 #include "util.h"
 #include "colors.h"
 
-char path[256] = "root";
-
 int main() {
+    const char *home_dir = getenv("HOME");
+    if (home_dir == NULL) {
+        home_dir = getpwuid(getuid())->pw_dir;
+    }
+    chdir(home_dir);
+    setenv("PWD", home_dir, 1);
+
+    const char *default_path = "/bin:/usr/bin";
+    if (getenv("PATH") == NULL) {
+        setenv("PATH", default_path, 1);
+    }
+
     while (1) {
         char *cmd = NULL;
         size_t size = 0;
         ssize_t chars;
 
-        printf(CYAN "user@%s> " RESET, path);
+        const char *current_dir = getenv("PWD");
+        printf(CYAN "user@%s> " RESET, current_dir);
+
         chars = getline(&cmd, &size, stdin);
         if (chars == -1) {
             free(cmd);
-            break; 
+            break;
         }
         if (chars > 0 && cmd[chars - 1] == '\n') {
             cmd[chars - 1] = '\0';
         }
+
         char **tokens = split_str(cmd, ' ');
-        if (strcmp(tokens[0], "quit") == 0) {
+        if (tokens[0] != NULL && strcmp(tokens[0], "quit") == 0) {
             free(cmd);
-            for (int i = 0; tokens[i] != NULL; i++) {
-                free(tokens[i]);
-            }
-            free(tokens);
+            free_tokens(tokens);
             break;
         }
-        handle_cmd(path, tokens);
+
+        handle_cmd(tokens); 
 
         free(cmd);
-        for (int i = 0; tokens[i] != NULL; i++) {
-            free(tokens[i]);
-        }
-        free(tokens);
+        free_tokens(tokens);
     }
     return 0;
 }
