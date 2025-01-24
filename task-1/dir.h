@@ -3,7 +3,7 @@
 #ifndef DIR_H
 #define DIR_H
 
-void print_dirs(char* path);
+void print_dirs(char* path, bool hidden);
 bool includes_dir(char *path,char *name);
 bool create_dir(char *path); 
 

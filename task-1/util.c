@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include "dir.h"
 
@@ -62,7 +63,12 @@ void handle_cmd(char **cmd) {
 
     } else if (strcmp(cmd[0], "ls") == 0 || strcmp(cmd[0], "dir") == 0) {
         char *current_dir = getenv("PWD");
-        print_dirs(current_dir);
+        if (cmd[1] == NULL) {
+            print_dirs(current_dir, false);
+        } 
+        else if (strcmp(cmd[1], "-a") == 0) {
+            print_dirs(current_dir, true);
+        }
 
     } else if (strcmp(cmd[0], "mkdir") == 0) {
         const char *current_dir = getenv("PWD");
