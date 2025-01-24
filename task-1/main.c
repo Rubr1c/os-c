@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
-#include <dirent.h>
 #include "dir.h"
 #include "util.h"
+#include "colors.h"
 
 char path[256] = "root";
 
@@ -14,7 +13,7 @@ int main() {
         size_t size = 0;
         ssize_t chars;
 
-        printf("user@%s> ", path);
+        printf(CYAN "user@%s> " RESET, path);
         chars = getline(&cmd, &size, stdin);
         if (chars == -1) {
             free(cmd);
@@ -33,6 +32,7 @@ int main() {
             break;
         }
         handle_cmd(path, tokens);
+
         free(cmd);
         for (int i = 0; tokens[i] != NULL; i++) {
             free(tokens[i]);

@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include "colors.h"
 
 void print_dirs(char* path) {
     DIR *d;
@@ -13,7 +14,11 @@ void print_dirs(char* path) {
     if (d) {
         while ((dir = readdir(d)) != NULL) {
             if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
-                printf("%s ", dir->d_name); 
+                if (dir->d_type == DT_DIR) {
+                    printf(BLUE "%s " RESET, dir->d_name); 
+                } else {
+                    printf("%s ", dir->d_name); 
+                }
             }
         }
         printf("\n\n");
