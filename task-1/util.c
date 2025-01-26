@@ -99,6 +99,13 @@ void handle_cmd(char **cmd) {
             curr = cmd[++idx];
         }
         printf("\n\n");
+    } else if (strcmp(cmd[0], "help") == 0) {
+        printf("cd [DIR_NAME | DIR_PATH] -changes directory\n");
+        printf("ls | dir {-a: show hidden} -list all items in directory\n");
+        printf("mkdir [DIR_NAME --required] -creates a directory\n");
+        printf("env | environ -show environment variables\n");
+        printf("set [KEY] [VALUE] -sets a environment variable\n");
+        printf("echo {$ENV_KEY: env var} -prints to terminal\n\n");
     }
 }
 
