@@ -14,12 +14,10 @@ void print_dirs(char* path, bool hidden) {
     if (d) {
         while ((dir = readdir(d)) != NULL) {
             if (!hidden && dir->d_name[0] == '.') continue;
-            if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
-                if (dir->d_type == DT_DIR) {
-                    printf(BLUE "%s " RESET, dir->d_name); 
-                } else {
-                    printf("%s ", dir->d_name); 
-                }
+            if (dir->d_type == DT_DIR) {
+                printf(BLUE "%s " RESET, dir->d_name); 
+            } else {
+                printf("%s ", dir->d_name); 
             }
         }
         printf("\n\n");
