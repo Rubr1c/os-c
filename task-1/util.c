@@ -88,6 +88,10 @@ void handle_cmd(char **cmd) {
        setenv(cmd[1], cmd[2], 1); 
     } 
     else if (strcmp(cmd[0], "echo") == 0) {
+        if (cmd[1][0] == '$') {
+            printf("%s\n\n", getenv(cmd[1] + 1));
+            return;
+        }
         int idx = 1;
         char *curr = cmd[1];
         while (curr != NULL) {
