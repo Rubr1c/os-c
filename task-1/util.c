@@ -111,12 +111,19 @@ void handle_cmd(char **cmd) {
         }
         printf("\n\n");
     } else if (strcmp(cmd[0], "help") == 0) {
-        printf("cd [DIR_NAME | DIR_PATH] -changes directory\n");
-        printf("ls | dir {-a: show hidden} -list all items in directory\n");
-        printf("mkdir [DIR_NAME --required] -creates a directory\n");
-        printf("env | environ -show environment variables\n");
-        printf("set [KEY] [VALUE] -sets a environment variable\n");
-        printf("echo {$ENV_KEY: env var} -prints to terminal\n\n");
+        FILE* more = popen("more", "w");
+        if (!more) {
+            perror("popen failed");
+            return;
+        }
+        fprintf(more, "cd [DIR_NAME | DIR_PATH] -changes directory\n");
+        fprintf(more, "ls | dir [DIR_NAME] {-a: show hidden} -list all items in directory\n");
+        fprintf(more, "mkdir [DIR_NAME --required] -creates a directory\n");
+        fprintf(more, "env | environ -show environment variables\n");
+        fprintf(more, "set [KEY] [VALUE] -sets a environment variable\n");
+        fprintf(more, "echo {$ENV_KEY: env var} -prints to terminal\n\n");
+
+        pclose(more);
     }
 }
 
