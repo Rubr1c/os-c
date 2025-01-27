@@ -7,7 +7,16 @@
 #include "util.h"
 #include "colors.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+    FILE *input  = stdin;
+    if (argc > 1) {
+        input = fopen(argv[1], "r");
+        if (!input) {
+            perror("Error opening batch file");
+            exit(EXIT_FAILURE);
+        }
+    }
+
     const char *home_dir = getenv("HOME");
     if (home_dir == NULL) {
         home_dir = getpwuid(getuid())->pw_dir;
@@ -26,9 +35,11 @@ int main() {
         ssize_t chars;
 
         const char *current_dir = getenv("PWD");
-        printf(CYAN "user@%s> " RESET, current_dir);
 
-        chars = getline(&cmd, &size, stdin);
+        if (input == stdin) {
+            printf(CYAN "user@%s> " RESET, current_dir);
+        }
+        chars = getline(&cmd, &size, input);
         if (chars == -1) {
             free(cmd);
             break;
@@ -48,6 +59,8 @@ int main() {
 
         free(cmd);
         free_tokens(tokens);
+
     }
+    if (input != stdin) fclose(input); 
     return 0;
 }
