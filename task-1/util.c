@@ -62,13 +62,24 @@ void handle_cmd(char **cmd) {
         }
 
     } else if (strcmp(cmd[0], "ls") == 0 || strcmp(cmd[0], "dir") == 0) {
-        char *current_dir = getenv("PWD");
-        if (cmd[1] == NULL) {
-            print_dirs(current_dir, false);
-        } 
-        else if (strcmp(cmd[1], "-a") == 0) {
-            print_dirs(current_dir, true);
+        bool show_hidden = false;
+        char *target = getenv("PWD");
+        for (int i = 1; cmd[i] != NULL; i++) {
+            if (strcmp(cmd[i], "-a") == 0) {
+                show_hidden = true;
+            } else {
+                target = cmd[i];
+            }
         }
+
+        char path[256];
+        if (target[0] != '/') {
+             snprintf(path, sizeof(path), "%s/%s", getenv("PWD"), target);
+        } else {
+            strncpy(path, target, sizeof(path));
+        }
+
+        print_dirs(path, show_hidden);
 
     } else if (strcmp(cmd[0], "mkdir") == 0) {
         const char *current_dir = getenv("PWD");

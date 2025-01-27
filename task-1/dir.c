@@ -22,6 +22,9 @@ void print_dirs(char* path, bool hidden) {
         }
         printf("\n\n");
         closedir(d);
+    } else {
+        perror("opendir");
+        printf("\n");
     }
 }
 
