@@ -41,6 +41,7 @@ void handle_cmd(char **cmd) {
     char *input_file = NULL;
     char *output_file = NULL;
     bool append_mode = false;
+    bool background = false;
 
     for (int i = 0; cmd[i] != NULL; i++) {
         if (strcmp(cmd[i], "<") == 0 && cmd[i+1] != NULL) {
@@ -62,6 +63,9 @@ void handle_cmd(char **cmd) {
             cmd[i] = NULL;
             cmd[i+1] = NULL;
             i++;
+        } else if (strcmp(cmd[i], "&") == 0) {
+            cmd[i] = NULL;  
+            background = true;
         }
     }
 
@@ -254,7 +258,13 @@ void handle_cmd(char **cmd) {
             perror("execvp failed");
             exit(EXIT_FAILURE);
         } else if (pid > 0) {
-            wait(NULL);
+
+            if (!background) {
+                wait(NULL);
+            } else {
+                printf("Command running in the background with PID %d\n\n", pid);
+            }
+
         } else {
             perror("fork failed");
         }
