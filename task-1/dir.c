@@ -7,14 +7,14 @@
 #include <sys/stat.h>
 #include "colors.h"
 
-void print_dirs(char* path, bool hidden) {
+void print_dirs(char* path, bool hidden, bool colors) {
     DIR *d;
     struct dirent *dir;
     d = opendir(path);
     if (d) {
         while ((dir = readdir(d)) != NULL) {
             if (!hidden && dir->d_name[0] == '.') continue;
-            if (dir->d_type == DT_DIR) {
+            if (dir->d_type == DT_DIR && colors) {
                 printf(BLUE "%s " RESET, dir->d_name); 
             } else {
                 printf("%s ", dir->d_name); 
