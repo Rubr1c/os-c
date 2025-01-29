@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     FILE *input  = stdin;
     if (argc > 1) {
         input = fopen(argv[1], "r");
-        if (!input) {
+       if (!input) {
             perror("Error opening batch file");
             exit(EXIT_FAILURE);
         }

@@ -217,7 +217,11 @@ void handle_cmd(char **cmd) {
             fprintf(more, "mkdir [DIR_NAME --required] -creates a directory\n");
             fprintf(more, "env | environ -show environment variables\n");
             fprintf(more, "set [KEY] [VALUE] -sets a environment variable\n");
-            fprintf(more, "echo [MSG] {$ENV_KEY: env var} -prints to terminal\n\n");
+            fprintf(more, "echo [MSG] {$ENV_KEY: env var} -prints to terminal\n");
+            fprintf(more, "& run proccess in the backround\n");
+            fprintf(more, "> write output to file");
+            fprintf(more, ">> append output to file");
+            fprintf(more, "< get input from file");
 
             pclose(more);
         } else if (strcmp(cmd[0], "pause") == 0) {
