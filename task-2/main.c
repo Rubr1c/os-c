@@ -124,7 +124,7 @@ int main() {
     char filename[256];
     printf("Enter file name: ");
     scanf("%255s", filename);
-    printf("Enter segment (thread) count: ");
+    printf("Enter segment count: ");
     scanf("%zu", &t_num);
 
     FILE *file = fopen(filename, "r");
