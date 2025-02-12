@@ -54,11 +54,26 @@ int* get_available(int *existing_resources,
                    int *allocation_m, 
                    int process_count, 
                    int resource_t_count) {
-    
+    int *available_resources = malloc(sizeof(int) * resource_t_count);
+    for (int j = 0; j < resource_t_count; j++) {
+        int total = 0;
+        for (int i = 0; i < process_count; i++) {
+            total += allocation_m[i * resource_t_count + j];
+        }
+        available_resources[j] = existing_resources[j] - total;
+    }
+    return available_resources;    
 }
 
 int main() {
     input_t in = read_input("input.txt");
+    int* av = get_available(in.existing_resources, 
+                            in.allocation_m, 
+                            in.process_count, 
+                            in.resource_t_count);
+    for (int i = 0; i < in.resource_t_count; i++) {
+        printf("%d ", av[i]);
+    }
 
     return 0;
 }
