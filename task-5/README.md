@@ -28,17 +28,5 @@ gcc main.c -o file_histogram
 
 # Description
 
-This program recursively traverses a directory structure starting from a specified path.
-It records the size of each file found and creates a histogram showing the distribution
-of file sizes using configurable bin widths.
-
-The program performs the following operations:
-
-1. Traverses the directory structure recursively
-2. Records the size of each regular file encountered
-3. Organizes file sizes into bins based on the specified bin width
-4. Generates and displays a histogram showing the distribution of file sizes
-5. Provides summary statistics including total file count and total size
-
-The histogram output shows each populated bin with its size range, the number of files
-in that range, and a visual bar representing the relative frequency.
+The program performs a recursive traversal which begins at a designated path.
+The program tracks file sizes from each discovery before generating distribution data through a histogram display.
