@@ -21,8 +21,7 @@ typedef struct {
   unsigned long total_size;
 } Histogram;
 
-// Initialize a histogram with a specific bin width
-Histogram *init_histogram(unsigned long bin_width) {
+Histogram *new_histogram(unsigned long bin_width) {
   Histogram *hist = malloc(sizeof(Histogram));
   if (!hist) {
     perror("Failed to allocate memory for histogram");
@@ -34,12 +33,6 @@ Histogram *init_histogram(unsigned long bin_width) {
   hist->bins = calloc(MAX_BINS, sizeof(unsigned long));
   hist->file_count = 0;
   hist->total_size = 0;
-
-  if (!hist->bins) {
-    perror("Failed to allocate memory for bins");
-    free(hist);
-    exit(EXIT_FAILURE);
-  }
 
   return hist;
 }
@@ -55,11 +48,6 @@ void free_histogram(Histogram *hist) {
 
 void add_file_to_histogram(Histogram *hist, unsigned long file_size) {
   unsigned long bin_index = file_size / hist->bin_width;
-
-  if (bin_index >= MAX_BINS) {
-    fprintf(stderr, "Warning: File size exceeds maximum bin capacity\n");
-    bin_index = MAX_BINS - 1;
-  }
 
   hist->bins[bin_index]++;
   hist->file_count++;
@@ -146,7 +134,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  Histogram *hist = init_histogram(bin_width);
+  Histogram *hist = new_histogram(bin_width);
 
   printf("Analyzing directory: %s\n", directory);
   printf("Using bin width: %lu bytes\n", bin_width);
