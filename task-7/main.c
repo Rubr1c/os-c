@@ -69,7 +69,7 @@ int* get_available(int *existing_resources,
         }
         available_resources[j] = existing_resources[j] - total;
     }
-    return available_resources;    
+    return available_resources;
 }
 
 Deadlocks get_deadlocked(int process_count, 
