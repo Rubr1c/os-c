@@ -6,7 +6,7 @@
 #include <sys/types.h>
 
 
-void list_directory(const char* path, bool show_hidden, bool use_colors) {
+void list_directory(const char* path, bool show_hidden) {
     DIR *d;
     struct dirent *dir;
     d = opendir(path);
@@ -30,7 +30,6 @@ void list_directory(const char* path, bool show_hidden, bool use_colors) {
 
 int main(int argc, char *argv[]) {
     bool show_hidden = false;
-    bool use_colors = true;
     
     if (argc < 2) {
         list_directory(".", show_hidden, use_colors);
@@ -43,13 +42,13 @@ int main(int argc, char *argv[]) {
         start_index++;
         
         if (argc == 2) {
-            list_directory(".", show_hidden, use_colors);
+            list_directory(".", show_hidden);
             return 0;
         }
     }
     
     for (int i = start_index; i < argc; i++) {
-        list_directory(argv[i], show_hidden, use_colors);
+        list_directory(argv[i], show_hidden);
     }
     
     return 0;
