@@ -12,7 +12,7 @@ gcc main.c -o cpu_scheduler
 ./cpu_scheduler
 ```
 
-# CPU Scheduling Simulator
+# Description
 
 This program simulates three CPU scheduling algorithms:
 
