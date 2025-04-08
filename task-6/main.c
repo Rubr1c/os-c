@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     bool show_hidden = false;
     
     if (argc < 2) {
-        list_directory(".", show_hidden, use_colors);
+        list_directory(".", show_hidden);
         return 0;
     }
     
