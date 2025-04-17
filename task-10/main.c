@@ -32,7 +32,7 @@ void des25_encrypt(const char *password, uint16_t salt, uint8_t out[8]) {
     memcpy(out, block, 8);
 }
 
-static void print_hex(const uint8_t *buf, size_t len) {
+void print_hex(const uint8_t *buf, size_t len) {
     for (size_t i = 0; i < len; i++) {
         printf("%02X", buf[i]);
     }
