@@ -7,10 +7,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#ifndef PATH_MAX
-#define PATH_MAX 4096
-#endif
-
 #define MAX_BINS 1000
 
 typedef struct {
