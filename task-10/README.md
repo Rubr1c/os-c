@@ -1,6 +1,6 @@
 # How to run
 
-## Compile
+## Compile and link lcrypto library
 
 ```bash
 gcc main.c -o encrypt -lcrypto
