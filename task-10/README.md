@@ -43,12 +43,3 @@ Entry {number}: SALT=0x{salt used} HASH={output hash}
 ```
 
 number is the index of which password it is. salt is the salt value taken from the input file.
-
-# Example
-
-```bash
-$ ./encrypt input.txt
-Entry  1: SALT=0x1A2B  HASH=5F2C3A7B9D8E1F0A
-Entry  2: SALT=0x1A2B  HASH=A4C1B2D3E4F56789
-...
-```
