@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <openssl/des.h>
 
-static void derive_key(const char *pw, DES_cblock *key_out, DES_key_schedule *ks_out) {
+void derive_key(const char *pw, DES_cblock *key_out, DES_key_schedule *ks_out) {
     DES_cblock key;
     memset(key, 0, sizeof(key));
     strncpy((char*)key, pw, 8);
